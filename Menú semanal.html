@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Menú semanal</title>
+<style>
+:root{--bg:#f5f5f7;--card:#fff;--tx:#1d1d1f;--mu:#6e6e73;--ac:#0071e3;--ln:#d2d2d7;--nav:rgba(251,251,253,.8);--chip:#f5f5f7;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#000;--card:#1c1c1e;--tx:#f5f5f7;--mu:#a1a1a6;--ac:#2997ff;--ln:#38383a;--nav:rgba(22,22,23,.8);--chip:#2c2c2e;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#000;--card:#1c1c1e;--tx:#f5f5f7;--mu:#a1a1a6;--ac:#2997ff;--ln:#38383a;--nav:rgba(22,22,23,.8);--chip:#2c2c2e;color-scheme:dark}
+html{height:100%;scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;min-height:100%;background:var(--bg);color:var(--tx);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Inter","Helvetica Neue",Arial,sans-serif;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--nav);backdrop-filter:blur(20px);z-index:10}
+a{color:var(--ac);text-decoration:none}
+nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;background:var(--nav);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);border-bottom:1px solid var(--ln)}
+nav div{max-width:1000px;margin:auto;display:flex;gap:4px;padding:0 12px;height:48px;align-items:center;overflow-x:auto;white-space:nowrap}
+nav a{color:var(--tx);font-size:13px;padding:6px 12px;border-radius:980px;opacity:.75}
+nav a.on{opacity:1;background:var(--chip);font-weight:600}
+nav .logo{font-size:17px;opacity:1;padding-right:12px}
+main{max-width:1000px;margin:auto;padding:0 20px 60px}
+.hero{text-align:center;padding:72px 0 40px}
+.hero small{color:#bf4800;font-weight:600;font-size:17px}
+.hero h1{font-size:clamp(40px,8vw,72px);line-height:1.05;letter-spacing:-.03em;margin:8px 0 12px;font-weight:700}
+.hero p{font-size:clamp(17px,2.5vw,24px);color:var(--mu);margin:0;font-weight:400}
+h2{font-size:clamp(26px,4vw,40px);letter-spacing:-.02em;margin:56px 0 20px;font-weight:700}
+h3{font-size:14px;color:var(--mu);font-weight:600;margin:28px 0 10px;text-transform:uppercase;letter-spacing:.06em}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:14px}
+.card{background:var(--card);border-radius:22px;padding:22px;display:block;color:var(--tx);transition:transform .25s}
+a.card:hover{transform:scale(1.02)}
+.day .e{font-size:30px;letter-spacing:4px;min-height:40px}
+.day b{display:block;font-size:24px;margin-top:10px;letter-spacing:-.01em}
+.day span{color:var(--mu);font-size:14px}
+.day i{display:block;font-style:normal;color:var(--ac);margin-top:12px;font-size:15px}
+.ing{text-align:center;padding:26px 14px}
+.ing .e{font-size:54px;line-height:1;margin-bottom:12px}
+.ing b{display:block;font-size:17px}
+.ing .q{color:var(--ac);font-weight:600;margin-top:6px;font-size:15px}
+.ing small{display:block;color:var(--mu);font-size:12px;margin-top:6px}
+.dh{padding:56px 0 8px}
+.dh a{font-size:17px}
+.dh h1{font-size:clamp(44px,9vw,80px);letter-spacing:-.03em;margin:6px 0;line-height:1.05}
+.dh p{color:var(--mu);font-size:21px;margin:0}
+.meal h4{margin:0 0 12px;font-size:22px;letter-spacing:-.01em}
+.row{display:flex;align-items:center;gap:12px;padding:10px 0;border-top:1px solid var(--ln);font-size:16px}
+.row .e{font-size:26px;width:34px;text-align:center}
+.row span:nth-child(2){flex:1}
+.row em{font-style:normal;color:var(--mu);font-size:15px}
+.pn{display:flex;justify-content:space-between;margin-top:36px;font-size:19px}
+.note{color:var(--mu);font-size:13px;text-align:center;margin-top:48px}
+</style>
+</head>
+<body>
+<nav><div id="nav"></div></nav>
+<main id="app"></main>
+<script>
+const N={lunes:"Lunes",martes:"Martes",miercoles:"Miércoles",jueves:"Jueves",viernes:"Viernes"};
+const K=Object.keys(N);
+const D={
+lunes:[["Desayuno","Atún|1 lata;Tostadas|2 pz;Brócoli|1/2 tz;Pepino|1 tz"],["Colación","Soful|;Uva|1 tz"],["Comida","Bistec de res|120 g;Arroz|;Lechuga|1 1/2 tz;Pepino|1 1/2 tz"],["Colación","Piña|1 tz"],["Cena","Milanesa de pollo|90 g;Jugo verde|;Arroz|1/2 tz"]],
+martes:[["Desayuno","Bistec de pollo|90 g;Pepino|1 tz;Brócoli|1/2 tz;Arroz|1/4 tz"],["Colación","Soful|"],["Colación","Uva|1 tz"],["Comida","Carne de puerco en salsa de jitomate|120 g;Arroz|1/2 tz;Pepino|2 tz;Brócoli|1/2 tz"],["Colación","Piña|1 tz"],["Cena","Quesadilla|1 pz;Queso|30 g;Chuleta ahumada|2 pz;Lechuga|1 1/2 tz;Pepino|1 1/2 tz"]],
+miercoles:[["Desayuno","Chuleta ahumada|3 pz;Arroz|1/4 tz;Pepino|1 tz;Brócoli|1/2 tz"],["Colación","Soful|1 pz"],["Colación","Uvas|1 tz;Piña|1 tz"],["Comida","Filete de pescado|160 g;Brócoli|1 1/2 tz;Arroz|1/4 tz"],["Colación","Arroz|1/4 tz"],["Cena","Bistec de pollo|90 g;Arroz|1/4 tz;Pepino|1 tz;Brócoli|1/2 tz"]],
+jueves:[["Desayuno","Bistec de pollo|90 g;Arroz|1/4 tz;Jugo verde|"],["Colación","Soful|"],["Colación","Piña|1 tz;Uva|1 tz"],["Cena","Filete de pescado|120 g;Arroz|;Jugo verde|"]],
+viernes:[["Desayuno","Bistec de pollo|90 g;Jugo verde|;Arroz|1/4 tz"],["Colación","Soful|"],["Colación","Uvas|1 tz;Piña|1 tz"],["Comida","Bistec de pollo|120 g;Pepino|1 tz;Brócoli|1 tz;Arroz|1/4 tz"],["Colación","Arroz|1/4 tz"],["Cena","Bistec de pollo|90 g;Jugo verde|;Arroz|1/4 tz"]]
+};
+const I=[["bistec de res|carne de res","🥩"],["pollo","🍗"],["puerco","🥩"],["chuleta","🍖"],["pescado","🐟"],["atún","🥫"],["quesadilla","🫓"],["queso","🧀"],["brócoli","🥦"],["pepino","🥒"],["lechuga","🥬"],["jitomate","🍅"],["jugo","🥤"],["uva","🍇"],["piña","🍍"],["arroz","🍚"],["tostada","🍞"],["soful","🍮"]];
+const ico=n=>{n=n.toLowerCase();for(const[k,e]of I)if(new RegExp(k).test(n))return e;return"🍽️"};
+const G=[
+["Proteínas",[["Bistec de res","120 g"],["Pollo","660 g","5 bistecs de 90 g, 1 de 120 g y 1 milanesa"],["Carne de puerco","120 g","En salsa de jitomate"],["Chuleta ahumada","5 pz"],["Filete de pescado","280 g"],["Atún","1 lata"],["Queso","30 g"],["Quesadilla","1 pz"]]],
+["Verduras",[["Brócoli","5 tz"],["Pepino","10 tz"],["Lechuga","3 tz"],["Jitomate","Al gusto","Para la salsa del martes"],["Jugo verde","5 porciones"]]],
+["Frutas",[["Uva","5 tz"],["Piña","5 tz"]]],
+["Cereales y más",[["Arroz","≈ 3 1/2 tz","Más 2 porciones sin cantidad"],["Tostadas","2 pz"],["Soful","5 pz","1 por día"]]]
+];
+const app=document.getElementById("app"),nav=document.getElementById("nav");
+function home(){
+ let h=`<section class="hero"><small>Menú semanal</small><h1>Tu semana.<br>Bien servida.</h1><p>Cinco días, todo lo que necesitas comprar y cocinar.</p></section>
+ <h2>Elige un día.</h2><div class="grid">`;
+ K.forEach(k=>{const m=D[k];const em=[...new Set(m.flatMap(x=>x[1].split(";").map(s=>ico(s.split("|")[0]))))].slice(0,5).join("");
+  h+=`<a class="card day" href="#${k}"><div class="e">${em}</div><b>${N[k]}</b><span>${m.length} momentos del día</span><i>Ver menú ›</i></a>`});
+ h+=`</div><h2>Lista de ingredientes.</h2>`;
+ G.forEach(([t,L])=>{h+=`<h3>${t}</h3><div class="grid">`;L.forEach(([n,q,s])=>{h+=`<div class="card ing"><div class="e">${ico(n)}</div><b>${n}</b><div class="q">${q}</div>${s?`<small>${s}</small>`:""}</div>`});h+=`</div>`});
+ return h+`<p class="note">Cantidades sumadas de lunes a viernes. tz = taza · pz = pieza.</p>`;
+}
+function day(k){
+ const i=K.indexOf(k),p=K[i-1],n=K[i+1];
+ let h=`<section class="dh"><a href="#">‹ Menú semanal</a><h1>${N[k]}.</h1><p>${D[k].length} momentos del día</p></section><div class="grid" style="grid-template-columns:repeat(auto-fill,minmax(280px,1fr))">`;
+ D[k].forEach(([t,s])=>{h+=`<div class="card meal"><h4>${t}</h4>`;s.split(";").forEach(x=>{const[a,b]=x.split("|");h+=`<div class="row"><span class="e">${ico(a)}</span><span>${a}</span><em>${b||""}</em></div>`});h+=`</div>`});
+ return h+`</div><div class="pn"><span>${p?`<a href="#${p}">‹ ${N[p]}</a>`:""}</span><span>${n?`<a href="#${n}">${N[n]} ›</a>`:""}</span></div>`;
+}
+function route(){
+ const h=location.hash.slice(1);
+ app.innerHTML=D[h]?day(h):home();
+ nav.innerHTML=`<a class="logo ${D[h]?"":"on"}" href="#">🍽️ Menú</a>`+K.map(k=>`<a href="#${k}" class="${k===h?"on":""}">${N[k]}</a>`).join("");
+ window.scrollTo(0,0);
+}
+addEventListener("hashchange",route);route();
+</script>
+</body>
+</html>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Menú semanal</title>
+<style>
+:root{--bg:#fbfbfd;--card:#fff;--tx:#1d1d1f;--mu:#6e6e73;--ln:#d2d2d7;--ac:#0071e3;--g1:#0071e3;--g2:#bf5af2;--g3:#ff375f;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#000;--card:#1c1c1e;--tx:#f5f5f7;--mu:#a1a1a6;--ln:#38383a;--ac:#2997ff}}
+:root[data-theme="dark"]{--bg:#000;--card:#1c1c1e;--tx:#f5f5f7;--mu:#a1a1a6;--ln:#38383a;--ac:#2997ff}
+html{scroll-behavior:smooth;scroll-padding-top:60px}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Helvetica Neue",Arial,sans-serif;-webkit-font-smoothing:antialiased}
+nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;height:48px;display:flex;align-items:center;justify-content:center;gap:28px;background:color-mix(in srgb,var(--bg) 72%,transparent);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);border-bottom:1px solid var(--ln);font-size:13px}
+nav a{color:var(--tx);text-decoration:none;opacity:.8;transition:opacity .2s}nav a:hover{opacity:1}
+nav b{position:absolute;left:max(16px,env(safe-area-inset-left,0px));font-size:17px}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:19;background:var(--bg)}
+.hero{min-height:88vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px 20px;overflow:hidden}
+.hero h1{font-size:clamp(44px,10vw,96px);line-height:1.03;letter-spacing:-.03em;margin:0;font-weight:700;background:linear-gradient(90deg,var(--g1),var(--g2),var(--g3),var(--g1));background-size:300% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:flow 8s linear infinite}
+@keyframes flow{to{background-position:300% 0}}
+.hero p{font-size:clamp(19px,3vw,28px);color:var(--mu);margin:18px 0 28px;max-width:640px}
+.btn{display:inline-block;background:var(--ac);color:#fff;padding:12px 24px;border-radius:980px;font-size:17px;text-decoration:none;transition:transform .25s cubic-bezier(.2,.8,.2,1)}
+.btn:hover{transform:scale(1.06)}.btn.o{background:none;color:var(--ac);margin-left:8px}
+.rv{opacity:0;transform:translateY(40px) scale(.98);transition:opacity .9s cubic-bezier(.2,.8,.2,1),transform .9s cubic-bezier(.2,.8,.2,1)}
+.rv.in{opacity:1;transform:none}
+.hero .rv:nth-child(2){transition-delay:.15s}.hero .rv:nth-child(3){transition-delay:.3s}
+section{max-width:980px;margin:0 auto;padding:80px 20px}
+h2{font-size:clamp(34px,6vw,56px);letter-spacing:-.025em;margin:0 0 8px;font-weight:700;text-align:center}
+.sub{text-align:center;color:var(--mu);font-size:21px;margin:0 0 36px}
+.tabs{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;position:relative;margin-bottom:28px}
+.tab{border:0;background:var(--card);color:var(--tx);padding:10px 18px;border-radius:980px;font-size:15px;cursor:pointer;border:1px solid var(--ln);transition:all .3s cubic-bezier(.2,.8,.2,1)}
+.tab:hover{transform:translateY(-2px)}
+.tab.on{background:var(--tx);color:var(--bg);border-color:var(--tx);transform:scale(1.06)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+.card{background:var(--card);border-radius:24px;padding:26px;border:1px solid var(--ln);animation:pop .6s cubic-bezier(.2,.8,.2,1) both;transition:transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s}
+.card:hover{transform:translateY(-6px) scale(1.015);box-shadow:0 18px 40px rgba(0,0,0,.14)}
+@keyframes pop{from{opacity:0;transform:translateY(30px) scale(.96)}to{opacity:1;transform:none}}
+.card .t{font-size:13px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.card .e{font-size:30px}
+.card p{margin:0;font-size:19px;line-height:1.4}
+.card.w{grid-column:1/-1}
+.note{max-width:640px;margin:28px auto 0;text-align:center;color:var(--mu);font-size:14px}
+.bar{height:8px;border-radius:8px;background:var(--ln);overflow:hidden;max-width:420px;margin:0 auto 10px}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--g1),var(--g2));border-radius:8px;transition:width .6s cubic-bezier(.2,.8,.2,1)}
+.pc{text-align:center;color:var(--mu);font-size:15px;margin-bottom:28px}
+.cat{background:var(--card);border:1px solid var(--ln);border-radius:24px;padding:22px 24px}
+.cat h3{margin:0 0 10px;font-size:21px;display:flex;align-items:center;gap:10px}
+.it{display:flex;align-items:center;gap:12px;padding:11px 0;border-top:1px solid var(--ln);cursor:pointer;font-size:17px;user-select:none}
+.it input{position:absolute;opacity:0}
+.ck{flex:none;width:24px;height:24px;border-radius:50%;border:2px solid var(--ln);display:grid;place-items:center;transition:all .3s cubic-bezier(.2,.8,.2,1)}
+.ck svg{width:14px;height:14px;stroke:#fff;stroke-width:3;fill:none;stroke-dasharray:20;stroke-dashoffset:20;transition:stroke-dashoffset .35s .1s}
+.it input:checked+.ck{background:var(--ac);border-color:var(--ac);transform:scale(1.12)}
+.it input:checked+.ck svg{stroke-dashoffset:0}
+.it input:focus-visible+.ck{outline:2px solid var(--ac);outline-offset:3px}
+.it span.n{flex:1;transition:color .3s,opacity .3s}
+.it input:checked~.n{color:var(--mu);text-decoration:line-through;opacity:.7}
+.it em{font-style:normal;color:var(--mu);font-size:15px}
+.acts{text-align:center;margin-top:24px}
+.acts button{background:none;border:0;color:var(--ac);font-size:17px;cursor:pointer;padding:8px 14px}
+footer{text-align:center;color:var(--mu);font-size:13px;padding:30px 20px 50px;max-width:700px;margin:0 auto}
+@media (max-width:640px){nav{gap:16px}nav a:nth-of-type(n+3){display:none}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<nav><b>🍎</b><a href="#inicio">Inicio</a><a href="#menu">Menú</a><a href="#lista">Ingredientes</a></nav>
+
+<header class="hero" id="inicio">
+<h1 class="rv">Menú semanal.</h1>
+<p class="rv">Siete días. Seis tiempos de comida. Todo en un solo lugar.</p>
+<div class="rv"><a class="btn" href="#menu">Ver menú</a><a class="btn o" href="#lista">Lista de ingredientes ›</a></div>
+</header>
+
+<section id="menu">
+<h2 class="rv">Elige tu día.</h2>
+<p class="sub rv">Toca un día para ver sus comidas.</p>
+<div class="tabs rv" id="tabs" role="tablist"></div>
+<div class="grid" id="day"></div>
+<p class="note rv">Soful chico en Colación 1: cantidad por confirmar con tu nutrióloga (pieza completa o media). Las galletas de la Colación 3 se sustituyeron por arroz cocido ¼ de taza todos los días. Pasta y camote: cantidad no legible en el PDF.</p>
+</section>
+
+<section id="lista">
+<h2 class="rv">Lista de ingredientes.</h2>
+<p class="sub rv">Cantidades totales de la semana. Marca lo que ya tienes.</p>
+<div class="bar rv"><i id="fill"></i></div>
+<div class="pc rv" id="pc"></div>
+<div class="grid" id="cats"></div>
+<div class="acts"><button id="rst">Desmarcar todo</button></div>
+</section>
+
+<footer>Propuesta basada en la hoja de equivalencias. No sustituye las indicaciones de tu nutrióloga.</footer>
+
+<script>
+const DAYS=[
+["Lunes",[["Colación 1","🍇","Uvas 1 taza + 1 Soful chico"],["Desayuno","🥪","Atún 1 lata; tostadas horneadas 2 pzas; pepino 1 taza y brócoli ¼ taza; aceite de oliva 1 cdita."],["Colación 2","🍍","Piña 1 taza"],["Comida","🥩","Bistec de res 120 g; arroz cocido ¼ taza; pepino 3 tazas; aceite 1 cdita."],["Colación 3","🍚","Arroz cocido ¼ de taza"],["Cena","🍗","Milanesa de pollo 90 g; tortilla de maíz 1 pza; pepino 2 tazas; aceite 1 cdita."]]],
+["Martes",[["Colación 1","🍎","Manzana 1 pza + 1 Soful chico"],["Desayuno","🍗","Bistec de pollo 90 g; tortilla 1 pza; brócoli ½ taza; aceite 1 cdita."],["Colación 2","🍇","Uvas 1 taza"],["Comida","🥩","Carne de cerdo sin grasa 120 g en salsa de jitomate; arroz cocido ¼ taza; brócoli ¾ taza; aceite 1 cdita."],["Colación 3","🍚","Arroz cocido ¼ de taza"],["Cena","🐟","Filete de pescado 120 g; arroz cocido ¼ taza; pepino 1 taza y calabaza ½ taza; aceite 1 cdita."]]],
+["Miércoles",[["Colación 1","🍍","Piña 1 taza + 1 Soful chico"],["Desayuno","🍳","Huevo 3 pzas; pan integral 1 rebanada; pepino 1 taza y brócoli ¼ taza; aceite 1 cdita."],["Colación 2","🍇","Uvas 1 taza"],["Comida","🐟","Filete de pescado 160 g; pasta cocida (cantidad por confirmar); brócoli ¾ taza; aceite 1 cdita."],["Colación 3","🍚","Arroz cocido ¼ de taza"],["Cena","🍗","Bistec de pollo 90 g; tostadas horneadas 2 pzas; pepino 2 tazas; aceite 1 cdita."]]],
+["Jueves",[["Colación 1","🍎","Manzana 1 pza + 1 Soful chico"],["Desayuno","🥪","Atún 1 lata; tortilla 1 pza; pepino 1 taza y brócoli ¼ taza; aceite 1 cdita."],["Colación 2","🍍","Piña 1 taza"],["Comida","🥩","Bistec de res 120 g; papa cocida 68 g; calabaza 1 taza y pepino 1 taza; aceite 1 cdita."],["Colación 3","🍚","Arroz cocido ¼ de taza"],["Cena","🥓","Lomo de cerdo 90 g; arroz cocido ¼ taza; brócoli ¼ taza y pepino 1 taza; aceite 1 cdita."]]],
+["Viernes",[["Colación 1","🍇","Uvas 1 taza + 1 Soful chico"],["Desayuno","🍗","Bistec de pollo 90 g; arroz cocido ¼ taza; pepino 1 taza y brócoli ¼ taza; aceite 1 cdita."],["Colación 2","🍍","Piña 1 taza"],["Comida","🍗","Bistec de pollo 120 g; tostadas horneadas 2 pzas; pepino 2 tazas y brócoli ¼ taza; aceite 1 cdita."],["Colación 3","🍚","Arroz cocido ¼ de taza"],["Cena","🐟","Filete de pescado 120 g; tortilla 1 pza; calabaza ½ taza y pepino 1 taza; aceite 1 cdita."]]],
+["Sábado",[["Colación 1","🥭","Papaya 1 taza + 1 Soful chico"],["Desayuno","🍳","Huevo 2 pzas y queso panela 40 g; pan integral 1 rebanada; pepino 1 taza y brócoli ¼ taza; aceite 1 cdita."],["Colación 2","🍇","Uvas 1 taza"],["Comida","🥩","Bistec de res 120 g; arroz cocido ¼ taza; brócoli ¾ taza; aceite 1 cdita."],["Colación 3","🍚","Arroz cocido ¼ de taza"],["Cena","🍤","Camarón cocido 102 g; tortilla 1 pza; pepino 1 taza y calabaza ½ taza; aceite 1 cdita."]]],
+["Domingo",[["Colación 1","🍍","Piña 1 taza + 1 Soful chico"],["Desayuno","🍳","Huevo 3 pzas con jitomate; tostadas horneadas 2 pzas; pepino 1 taza y brócoli ¼ taza; aceite 1 cdita."],["Colación 2","🍎","Manzana 1 pza"],["Comida","🍗","Bistec de pollo 120 g; camote cocido (cantidad por confirmar); pepino 2 tazas y brócoli ¼ taza; aceite 1 cdita."],["Colación 3","🍚","Arroz cocido ¼ de taza"],["Cena","🐟","Filete de pescado 120 g; tortilla 1 pza; calabaza ½ taza y pepino 1 taza; aceite 1 cdita."]]]
+];
+const ING=[
+["🥩","Proteínas",[["Bistec de res","360 g"],["Pollo (bistec y milanesa)","600 g"],["Cerdo sin grasa y lomo","210 g"],["Filete de pescado","520 g"],["Camarón cocido","102 g"],["Atún","2 latas"],["Huevo","8 piezas"],["Queso panela","40 g"]]],
+["🥦","Verduras",[["Pepino","23 tazas"],["Brócoli","5 tazas"],["Calabaza","3 tazas"],["Jitomate (salsa y huevo)","al gusto"]]],
+["🍞","Cereales y tubérculos",[["Arroz cocido","3¼ tazas"],["Tortillas de maíz","6 piezas"],["Tostadas horneadas","8 piezas"],["Pan integral","2 rebanadas"],["Papa cocida","68 g"],["Pasta cocida","por confirmar"],["Camote cocido","por confirmar"]]],
+["🍇","Frutas",[["Uvas","5 tazas"],["Piña","5 tazas"],["Manzana","3 piezas"],["Papaya","1 taza"]]],
+["🍪","Colaciones y otros",[["Soful chico","7 piezas*"],["Aceite de oliva o canola","21 cditas"]]]
+];
+const $=s=>document.querySelector(s);
+const tabs=$("#tabs"),day=$("#day"),cats=$("#cats");
+let cur=new Date().getDay();cur=cur===0?6:cur-1;
+
+function showDay(i){
+  cur=i;
+  [...tabs.children].forEach((b,j)=>{b.classList.toggle("on",j===i);b.setAttribute("aria-selected",j===i)});
+  day.innerHTML=DAYS[i][1].map((m,k)=>`<div class="card${k===0?"":""}" style="animation-delay:${k*70}ms"><div class="t"><span class="e">${m[1]}</span>${m[0]}</div><p>${m[2]}</p></div>`).join("");
+}
+DAYS.forEach((d,i)=>{const b=document.createElement("button");b.className="tab";b.textContent=d[0];b.setAttribute("role","tab");b.onclick=()=>showDay(i);tabs.appendChild(b)});
+showDay(cur);
+
+let saved={};try{saved=JSON.parse(localStorage.getItem("menu-ck")||"{}")}catch(e){}
+cats.innerHTML=ING.map((c,ci)=>`<div class="cat rv"><h3><span>${c[0]}</span>${c[1]}</h3>${c[2].map((x,xi)=>{const id=ci+"-"+xi;return `<label class="it"><input type="checkbox" id="c${id}" data-k="${id}"${saved[id]?" checked":""}><span class="ck"><svg viewBox="0 0 16 16"><path d="M3 8.5l3.2 3L13 4.5"/></svg></span><span class="n">${x[0]}</span><em>${x[1]}</em></label>`}).join("")}</div>`).join("");
+const boxes=[...document.querySelectorAll("#cats input")];
+function upd(){
+  const n=boxes.filter(b=>b.checked).length,t=boxes.length;
+  $("#fill").style.width=(n/t*100)+"%";
+  $("#pc").textContent=n===t?"¡Todo listo! 🎉":n+" de "+t+" ingredientes listos";
+  const o={};boxes.forEach(b=>{if(b.checked)o[b.dataset.k]=1});
+  try{localStorage.setItem("menu-ck",JSON.stringify(o))}catch(e){}
+}
+boxes.forEach(b=>b.addEventListener("change",upd));
+$("#rst").onclick=()=>{boxes.forEach(b=>b.checked=false);upd()};
+upd();
+
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}}),{threshold:.15});
+document.querySelectorAll(".rv").forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
